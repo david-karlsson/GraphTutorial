@@ -1,0 +1,27 @@
+@model List<Message>
+
+@{
+    ViewData["Title"] = "Emails";
+}
+
+
+
+@foreach(var item in Model)
+{
+
+<span>
+<br/>
+
+<p style="color:grey">@item.ReceivedDateTime</p>
+<h4 style="color:midnightblue;">@item.Sender <h5 style="color:lightgrey;">(@item.From)</h5></h4>
+
+
+<h3>@item.Subject</h3>
+
+<hr>
+
+<p>@item.Body</p>
+</span>
+
+
+}

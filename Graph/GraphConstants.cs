@@ -7,7 +7,9 @@ namespace GraphTutorial
         {
             "User.Read",
             "MailboxSettings.Read",
-            "Calendars.ReadWrite"
+            "Calendars.ReadWrite",
+            "Mail.ReadWrite"
+
         };
     }
 }
