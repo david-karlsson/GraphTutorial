@@ -1,0 +1,13 @@
+@model List<Message>
+
+
+@{
+    ViewData["Title"] = "Default";
+}
+
+@foreach(var item in Model){
+
+@item.Body
+
+
+}
