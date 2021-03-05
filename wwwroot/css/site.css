@@ -110,3 +110,17 @@ body {
 .calendar-view-date-diff {
   font-size: .75em
 }
+
+label{
+  color: gainsboro;
+  font-size: 1.3rem;
+}
+
+p{
+  color: darkslategrey;
+  font-size:.1.2rem ;
+}
+
+h3{
+  color:midnightblue;
+}

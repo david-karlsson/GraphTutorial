@@ -26,6 +26,8 @@ namespace GraphTutorial.Views.Email{
                         
                     }
 
+              
+
 
             public string GetPlainTextFromHtml(string htmlString)
             {
@@ -45,7 +47,7 @@ namespace GraphTutorial.Views.Email{
                                                                                     .GetAsync();
 
 
-                                    var ComponentMessage = new List<Models.Message>();
+                                    var ComponentMessage = new List<Models.Email>();
 
 
                                         foreach (var message in userMessages){
@@ -53,7 +55,7 @@ namespace GraphTutorial.Views.Email{
 
 
                                                   var BodyText = GetPlainTextFromHtml(message.Body.Content);
-                                                       ComponentMessage.Add(new Models.Message{
+                                                       ComponentMessage.Add(new Models.Email{
                                                                     Body= BodyText
                                              
                                                        });

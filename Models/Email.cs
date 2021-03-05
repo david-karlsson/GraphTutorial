@@ -2,7 +2,7 @@
 
  namespace GraphTutorial.Models{
  
-        public class Message
+        public class Email
                 {
                     public string Id { get; set; }
                     public string From { get; set; }

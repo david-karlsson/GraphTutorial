@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+
 // using System.Net.Http;
 
 
@@ -33,7 +34,7 @@ GraphServiceClient _graphClient{get;set;}
 
 // public GraphServiceClient graphClient {get;set;}
         // MailFolder inbox = null;
-        List<Models.Message> MyMessages = null;
+        List<Email> MyMessages = null;
  
 
         IUserMessagesCollectionPage userMessages = null;
@@ -65,7 +66,7 @@ GraphServiceClient _graphClient{get;set;}
                                                                         .Select("sender, from, subject, importance,body,receivedDateTime")
                                                                         .GetAsync();
 
-                                        MyMessages = new List<Models.Message>();
+                                        MyMessages = new List<Email>();
 
                                         
                                             
@@ -76,7 +77,7 @@ GraphServiceClient _graphClient{get;set;}
                                         {
 
                                              var BodyText = GetPlainTextFromHtml(message.Body.Content);
-                                            MyMessages.Add(new Models.Message
+                                            MyMessages.Add(new Email
                                             {
 
                                                 Id = message.Id,
@@ -114,7 +115,37 @@ GraphServiceClient _graphClient{get;set;}
                    }
 
 
+    private async void SendMessageButton_Click()
+        {
+            var recipients = new List<Recipient>();
+            recipients.Add(new Recipient
+            {
+                EmailAddress = new EmailAddress
+                {
+                    Address = "rgreen2005@msn.com"
+                }
+            });
 
+            var messageToSend = new Message
+            {
+                ToRecipients = recipients,
+                Subject = "Urgent",
+                Body = new ItemBody
+                {
+                    Content = "Call me immediately if you don't get this message!!",
+                    ContentType = BodyType.Html
+                },
+            };
+
+            try
+            {
+                await _graphClient.Me.SendMail(messageToSend, true).Request().PostAsync();
+            }
+            catch //(ServiceException ex)
+            {
+                // MessageCountTextBlock.Text = $"We could not send this message: {ex.Error.Message}";
+            }
+        }
 
 
 
