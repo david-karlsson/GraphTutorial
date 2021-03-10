@@ -1,0 +1,73 @@
+@model Microsoft.Graph.DriveItemChildrenCollectionPage
+
+    @{
+        ViewData["Title"] = "GetFiles";
+    }
+
+
+ <h3 class="toast-header">OneDrive Files/Folders</h3>
+
+                            @* <a class="nav-link" asp-area="" asp-controller="OneDrive" asp-action="GetOneDrive">/root</a> *@
+                     
+
+
+<div class="row col ">
+
+   
+
+
+    @foreach (var item in Model){
+
+
+      <span class="card card-body">  
+          
+            <p class="card-title"> <label >Namn: </label>
+            
+             @item.Name
+            </p>
+
+     
+
+              <p>  <label>WebURL: </label>
+       
+           <a href="@item.WebUrl">@item.WebUrl </a>
+            </p>
+     
+
+             
+          @{if(@item.Folder != null){
+
+             <p>  <label>Innehåll: </label>
+       
+   
+           <a href="@item.WebUrl">Se Mapp-Innehåll</a>
+            </p>
+            
+            }}
+
+         @{if(@item.Size != 0){
+            <p>  <label>Storlek: </label>
+       
+           @{var size = @item.Size/1000000;
+           
+           
+            } 
+            @size Mb
+            </p>
+            
+            }}
+
+             <p>  <label>Skapad: </label>
+       
+           <a href="@item.CreatedDateTime">@item.CreatedDateTime </a>
+            </p>
+
+
+
+
+
+
+         </span>    
+    }
+        
+        </div>

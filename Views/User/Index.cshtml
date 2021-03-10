@@ -4,7 +4,12 @@
         ViewData["Title"] = "Users";
     }
     
-    
+                          <p class="d-flex">     
+                              <a class="btn nav-link" asp-area="" asp-controller="User" asp-action="CreateUser">Create User</a>
+
+                            <a class=" btn nav-link" asp-area="" asp-controller="User" asp-action="UpdateUser">Update Users</a>
+                            
+                     </p>
     
     @foreach(var item in Model)
     {

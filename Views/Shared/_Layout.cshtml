@@ -38,6 +38,11 @@
                         <li class="@(controller == "User" ? "nav-item active" : "nav-item")">
                             <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                         </li>
+
+
+                         <li class="@(controller == "User" ? "nav-item active" : "nav-item")">
+                            <a class="nav-link" asp-area="" asp-controller="OneDrive" asp-action="GetFiles">OneDrive</a>
+                        </li>
                         }
                     </ul>
                     <partial name="_LoginPartial" />

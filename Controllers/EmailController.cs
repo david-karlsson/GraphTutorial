@@ -51,6 +51,17 @@ GraphServiceClient _graphClient{get;set;}
                 htmlString = Regex.Replace(htmlString, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
                 htmlString = htmlString.Replace("&nbsp;", string.Empty);
 
+
+
+
+                // var html = Regex.Replace(htmlString, @"</?html(.+?)>", "");
+
+                // var head = Regex.Replace(html, @"</?head>", "");
+
+                // var meta = Regex.Replace(head, @"</?meta(.+?)>", "");
+
+                // var body = Regex.Replace(meta, @"</?body>", "");
+
                 return htmlString;
             }
             
@@ -110,9 +121,10 @@ GraphServiceClient _graphClient{get;set;}
 
                 // return View();
 
-                    return View(MyMessages);
+                    return View (MyMessages);
 
                    }
+
 
 
     private async void SendMessageButton_Click()

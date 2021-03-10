@@ -21,13 +21,15 @@ GraphServiceClient _graphClient{get;set;}
             
         }
 
- List<User>MyUsers = null;
-IGraphServiceUsersCollectionPage users = null;
+                List<User>MyUsers = null;
+                IGraphServiceUsersCollectionPage users = null;
 
-  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite" })]
+
+    [HttpGet ]  
+  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite.All" })]
             public async  Task <IActionResult> Index(){
 
-//  userMessages =
+
 
                      users =  await _graphClient.Users.Request()
                                                                         .Select("displayName,mail,userPrincipalName")
@@ -56,6 +58,58 @@ IGraphServiceUsersCollectionPage users = null;
             }
 
 
+
+[HttpPost]
+  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite.All" })]
+
+public async Task<IActionResult> CreateUser(){
+
+    
+
+var user = new User
+{
+	AccountEnabled = true,
+	DisplayName = "Adele Vance",
+	MailNickname = "AdeleV",
+	UserPrincipalName = "AdeleV@contoso.onmicrosoft.com",
+	PasswordProfile = new PasswordProfile
+	{
+		ForceChangePasswordNextSignIn = true,
+		Password = "xWwvJ]6NMw+bWH-d"
+	}
+};
+
+await _graphClient.Users
+	.Request()
+	.AddAsync(user);
+
+    return View(user);
+
+}
+
+
+    [HttpPatch ]     
+  [AuthorizeForScopes(Scopes = new[] { "Directory.ReadWrite.All" })]
+            public async Task<IActionResult> UpdateUser(){
+
+
+                                var user = new User
+                {
+                 GivenName ="Test name"
+                };
+
+                await _graphClient.Me
+                    .Request()
+                    .UpdateAsync(user);
+                
+                
+                return View(user);
+            }
+
+
+       
+
+   
 
  }
    
