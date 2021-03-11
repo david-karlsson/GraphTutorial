@@ -28,24 +28,27 @@
 
      
 
-              <p>  <label>WebURL: </label>
-       
-           <a href="@item.WebUrl">@item.WebUrl </a>
-            </p>
-     
-
+          
              
           @{if(@item.Folder != null){
 
              <p>  <label>Innehåll: </label>
        
    
-           <a href="@item.WebUrl">Se Mapp-Innehåll</a>
+           <a href="@item.WebUrl"><i><img height="50rem" src="/img/Folder.ico"></i>Se Mapp-Innehåll</a>
             </p>
             
             }}
 
          @{if(@item.Size != 0){
+
+               <p>  <label>Fil-Adress: </label>
+                  
+                     <a href="@item.WebUrl"><i><img height="50rem" src="/img/Mime Blank.ico"></i>@item.WebUrl </a>
+                        </p>
+     
+
+
             <p>  <label>Storlek: </label>
        
            @{var size = @item.Size/1000000;
@@ -59,7 +62,7 @@
 
              <p>  <label>Skapad: </label>
        
-           <a href="@item.CreatedDateTime">@item.CreatedDateTime </a>
+           @item.CreatedDateTime
             </p>
 
 

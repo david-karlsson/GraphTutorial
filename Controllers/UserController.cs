@@ -54,7 +54,7 @@ GraphServiceClient _graphClient{get;set;}
 
                                             
                                         }
-                return View(MyUsers);
+                return View(users);
             }
 
 
