@@ -60,7 +60,7 @@ GraphServiceClient _graphClient{get;set;}
 
 
 [HttpPost]
-  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite.All" })]
+  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite" })]
 
 public async Task<IActionResult> CreateUser(){
 
@@ -89,7 +89,7 @@ await _graphClient.Users
 
 
     [HttpPatch ]     
-  [AuthorizeForScopes(Scopes = new[] { "Directory.ReadWrite.All" })]
+  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite" })]
             public async Task<IActionResult> UpdateUser(){
 
 

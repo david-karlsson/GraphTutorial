@@ -42,11 +42,16 @@
 
          @{if(@item.Size != 0){
 
+      @if(@item.Folder == null){
+
                <p>  <label>Fil-Adress: </label>
+            
                   
                      <a href="@item.WebUrl"><i><img height="50rem" src="/img/Mime Blank.ico"></i>@item.WebUrl </a>
                         </p>
+                        }
      
+      } }
 
 
             <p>  <label>Storlek: </label>
@@ -55,11 +60,10 @@
            
            
             } 
-            @size Mb
+            @size
             </p>
             
-            }}
-
+           
              <p>  <label>Skapad: </label>
        
            @item.CreatedDateTime
