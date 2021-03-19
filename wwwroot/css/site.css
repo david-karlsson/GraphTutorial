@@ -127,4 +127,7 @@ p{
 
 h3{
   color:midnightblue;
+  padding-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  border-bottom: 4px double goldenrod;
 }

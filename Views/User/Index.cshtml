@@ -4,20 +4,20 @@
         ViewData["Title"] = "Users";
     }
     
+        <h3>Users</h3>
                           <p class="d-flex">     
-                              <a class="btn nav-link" asp-area="" asp-controller="User" asp-action="CreateUser">Create User</a>
+                              <a class="btn nav-link m-1" asp-area="" asp-controller="User" asp-action="UserCreateForm">Create a new User</a>
 
-                            <a class=" btn nav-link" asp-area="" asp-controller="User" asp-action="UpdateUser">Update Users</a>
+                            <a class=" btn nav-link m-1" asp-area="" asp-controller="User" asp-action="UpdateUser">Update User</a>
                             
                      </p>
     
-        <h3>Users</h3>
     @foreach(var item in Model)
     {
 
 
 
-        <span>
+        <span class="card card-body">
             <label> User:            </label>
 
            <p> @item.DisplayName</p>

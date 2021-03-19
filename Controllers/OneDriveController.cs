@@ -56,6 +56,29 @@ GraphServiceClient _graphClient{get;set;}
 
 
 
+             [HttpPost]   
+        [AuthorizeForScopes(Scopes = new[] { "Files.ReadWrite" })]
+            public async Task<IActionResult> UploadFile(FileStream stream){
+
+
+             await _graphClient.Me
+                    .Drive
+                    .Root   
+                    .ItemWithPath("img/Documents.ico")
+                    .Content
+                    .Request()
+                    .PutAsync<DriveItem>(stream);
+
+
+                return View(stream);
+
+            }
+
+
+
+
+
+
 
 
  }

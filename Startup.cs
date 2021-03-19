@@ -15,9 +15,10 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.Graph;
+using Microsoft.Graph.Auth;
 using System.Net;
 using System.Net.Http.Headers;
-
+using Microsoft.Identity.Client;
 
 
 namespace GraphTutorial
@@ -130,7 +131,11 @@ namespace GraphTutorial
 
                 // Use in-memory token cache
                 // See https://github.com/AzureAD/microsoft-identity-web/wiki/token-cache-serialization
-                .AddInMemoryTokenCaches();
+               
+               
+                    .AddInMemoryTokenCaches();
+               
+
 
             // Require authentication
             services.AddControllersWithViews(options =>
@@ -142,6 +147,8 @@ namespace GraphTutorial
                 })
                 // Add the Microsoft Identity UI pages for signin/out
                 .AddMicrosoftIdentityUI();
+
+                
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

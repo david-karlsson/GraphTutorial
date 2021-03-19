@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
 using Microsoft.Graph;
+using Microsoft.Graph.Auth;
+using Microsoft.Identity.Client;
+
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,6 +14,16 @@ using System.Threading.Tasks;
 namespace GraphTutorial.Controllers{
 
  public class UserController:Controller{
+
+
+public readonly static string[] UserScope =
+        {
+            "User.ReadWrite"};
+
+
+
+
+
 
 GraphServiceClient _graphClient{get;set;}
 
@@ -26,7 +39,7 @@ GraphServiceClient _graphClient{get;set;}
 
 
     [HttpGet ]  
-  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite.All" })]
+  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite" })]
             public async  Task <IActionResult> Index(){
 
 
@@ -59,47 +72,67 @@ GraphServiceClient _graphClient{get;set;}
 
 
 
+public IActionResult UserCreateForm(){
+
+    return View();
+}
+
+
 [HttpPost]
   [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite" })]
 
-public async Task<IActionResult> CreateUser(){
+public async Task<IActionResult> CreateUser([Bind("GivenName,SurName,UserPrincipalName")]User user){
 
     
 
-var user = new User
-{
-	AccountEnabled = true,
-	DisplayName = "Adele Vance",
-	MailNickname = "AdeleV",
-	UserPrincipalName = "AdeleV@contoso.onmicrosoft.com",
-	PasswordProfile = new PasswordProfile
+// var user = new User
+// {
+// 	AccountEnabled = true,
+// 	DisplayName = "Ariel Schnell",
+// 	MailNickname = "AdeleS",
+// 	UserPrincipalName = "Ariel@dkwebbdesign.onmicrosoft.com",
+// 	PasswordProfile = new PasswordProfile
+// 	{
+// 		ForceChangePasswordNextSignIn = true,
+// 		Password = "xWwvJ]6NMw+bWH-d"
+// 	}
+// };
+        user.AccountEnabled = true;
+        user.DisplayName = user.GivenName +" "+ user.Surname;
+        user.MailNickname = user.GivenName;
+        user.PasswordProfile = new PasswordProfile
 	{
 		ForceChangePasswordNextSignIn = true,
 		Password = "xWwvJ]6NMw+bWH-d"
-	}
-};
+	};
 
-await _graphClient.Users
-	.Request()
-	.AddAsync(user);
 
+            if (ModelState.IsValid)
+            {
+
+                await _graphClient.Users
+                    .Request()
+                    .AddAsync(user);
+            }
+   
+   
     return View(user);
 
 }
 
 
     [HttpPatch ]     
+    [ValidateAntiForgeryToken]
   [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite" })]
-            public async Task<IActionResult> UpdateUser(){
+            public async Task<IActionResult> UpdateUser( [FromBody] User user){
 
 
-                                var user = new User
-                {
-                 GivenName ="Test name"
-                };
+                                
+                user.JobTitle ="Test..";
 
                 await _graphClient.Me
                     .Request()
+                    // .Select("jobTitle,mail,userPrincipalName")
                     .UpdateAsync(user);
                 
                 
