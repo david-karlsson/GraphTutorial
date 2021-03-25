@@ -1,0 +1,19 @@
+@model Microsoft.Graph.User
+
+    @{
+        ViewData["Title"] = "DeleteUser";
+    }
+    
+
+     
+    <h3>User Deleted:</h3>
+
+        
+        <p><label>Name:</label>
+            @Model.DisplayName</p>
+
+        <p><label>Email:</label>
+            @Model.UserPrincipalName</p>
+
+
+  

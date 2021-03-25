@@ -6,12 +6,13 @@ namespace GraphTutorial
         public readonly static string[] Scopes =
         {
             "User.ReadWrite",
+             "User.ReadWrite.All",
             "MailboxSettings.Read",
             "Calendars.ReadWrite",
             "Mail.ReadWrite",
             "Directory.ReadWrite.All",
-            "Files.ReadWrite"
-
+            "Files.ReadWrite",
+            // "Directory.AccessAsUser.All"
 
         };
     }

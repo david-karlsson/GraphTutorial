@@ -4,15 +4,13 @@
         ViewData["Title"] = "Users";
     }
     
-        <h3>Users</h3>
+
                           <p class="d-flex">     
-                              <a class="btn btn-primary nav-link m-1" asp-area="" asp-controller="User" asp-action="UserCreateForm">Create a new User</a>
+                   
 
                             <a class=" btn btn-info nav-link m-1" asp-area="" asp-controller="User" asp-action="UpdateUser">Update User</a>
 
                                <a class=" btn btn-danger nav-link m-1" asp-area="" asp-controller="User" asp-action="UserDeleteForm">Delete a User</a>
-                               
-                                <a class="nav-link" asp-area="" asp-controller="User" asp-action="Home">Layout</a>
                             
                      </p>
     
@@ -25,6 +23,7 @@
             <label> User:            </label>
 
            <p> @item.DisplayName</p>
+                      
 
             <label> Email:            </label>
 

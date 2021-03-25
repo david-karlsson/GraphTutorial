@@ -56,21 +56,35 @@ GraphServiceClient _graphClient{get;set;}
 
 
 
-             [HttpPost]   
+            //  [HttpPost]   
         [AuthorizeForScopes(Scopes = new[] { "Files.ReadWrite" })]
-            public async Task<IActionResult> UploadFile(FileStream stream){
 
 
-             await _graphClient.Me
-                    .Drive
-                    .Root   
-                    .ItemWithPath("img/Documents.ico")
-                    .Content
-                    .Request()
-                    .PutAsync<DriveItem>(stream);
+        
+            public async Task<IActionResult> UploadFile(){
 
 
-                return View(stream);
+                   string path = "wwwroot/img/Documents.ico";
+            byte[] data = System.IO.File.ReadAllBytes(path);
+
+        using (Stream stream = new MemoryStream(data))
+            {   var item = await _graphClient.Me.Drive.Items[""]
+                        .ItemWithPath("Documents.ico")
+                        .Content
+                        .Request()
+                        .PutAsync<DriveItem>(stream);
+            }
+
+            //  await _graphClient.Me
+            //         .Drive
+            //         .Root   
+            //         .ItemWithPath("img/Documents.ico")
+            //         .Content
+            //         .Request()
+            //         .PutAsync<DriveItem>(stream);
+
+
+                return View(data);
 
             }
 

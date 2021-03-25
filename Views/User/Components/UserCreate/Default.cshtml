@@ -5,19 +5,24 @@
     }
     
 
-     <h3> Create A New User:</h3>
+    
 
 
-     <div class="col-12">
+     <div class="col-6 m-5">
+
+          <h3> Create A New User:</h3>
+
+
+          
         <form asp-action="CreateUser">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
           
           
           
             <div class="form-group">
-                <label asp-for="DisplayName" class="control-label"></label>
+                <label >Name:</label>
                 <input asp-for="DisplayName" class="form-control"  />
-                <span asp-validation-for="GivenName" class="text-danger"></span>
+                <span asp-validation-for="DisplayName" class="text-danger"></span>
             </div>
 
 
@@ -26,8 +31,8 @@
                 <input asp-for="Surname" id="text-box" class="form-control" style="padding-bottom: 5rem;
                                       padding-top: 1rem;"/>
                 <span asp-validation-for="Surname" class="text-danger"></span>
-            </div>
- *@
+            </div> *@
+
 
                <div class="form-group">
                 <label class="control-label">Email:</label>

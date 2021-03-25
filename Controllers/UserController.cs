@@ -16,6 +16,13 @@ namespace GraphTutorial.Controllers{
  public class UserController:Controller{
 
 
+public IActionResult Home(){
+
+
+    return View();
+}
+
+
 public readonly static string[] UserScope =
         {
             "User.ReadWrite"};
@@ -79,9 +86,8 @@ public IActionResult UserCreateForm(){
 
 
 [HttpPost]
-  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite" })]
-
-public async Task<IActionResult> CreateUser([Bind("GivenName,SurName,UserPrincipalName")]User user){
+  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite.All" })]
+public async Task<IActionResult> CreateUser([Bind("DisplayName,UserPrincipalName")]User user){
 
     
 
@@ -98,8 +104,10 @@ public async Task<IActionResult> CreateUser([Bind("GivenName,SurName,UserPrincip
 // 	}
 // };
         user.AccountEnabled = true;
-        user.DisplayName = user.GivenName +" "+ user.Surname;
-        user.MailNickname = user.GivenName;
+        // var fullName = user.GivenName +" "+ user.Surname;
+        // user.DisplayName = user.GivenName;
+        user.City="RequiredForCompatibility";
+        user.MailNickname = user.City;
         user.PasswordProfile = new PasswordProfile
 	{
 		ForceChangePasswordNextSignIn = true,
@@ -111,7 +119,7 @@ public async Task<IActionResult> CreateUser([Bind("GivenName,SurName,UserPrincip
             {
 
                 await _graphClient.Users
-                    .Request()
+                    .Request()                 
                     .AddAsync(user);
             }
    
@@ -142,7 +150,30 @@ public async Task<IActionResult> CreateUser([Bind("GivenName,SurName,UserPrincip
 
        
 
+public IActionResult UserDeleteForm(){
+
+    return View();
+}
+
+
    
+    [HttpDelete ]     
+    [ValidateAntiForgeryToken]
+  [AuthorizeForScopes(Scopes = new[] { "Directory.AccessAsUser.All" })]
+            public async Task<IActionResult> DeleteUser( [FromBody] User user){
+
+
+                                
+ 
+               await _graphClient.Users[user.UserPrincipalName]
+	                    .Request()
+	                    .DeleteAsync();
+
+                
+                return View(user);
+            }
+
+
 
  }
    

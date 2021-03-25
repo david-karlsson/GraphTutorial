@@ -19,12 +19,25 @@ using Microsoft.Graph.Auth;
 using System.Net;
 using System.Net.Http.Headers;
 using Microsoft.Identity.Client;
-
+using Microsoft.AspNetCore.Http;
 
 namespace GraphTutorial
 {
     public class Startup
     {
+        
+        
+//         public async Task UpdateToGraph(object UnSerializedContent, string relativeUrl, HttpContext httpcontext) {
+//     var accessToken = await _tokenManager.GetAccessTokenAsync();
+//     var token = await httpcontext.GetAccessTokenAsync();
+//     Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+//     Client.DefaultRequestHeaders.Add("ContentType", "application/json");
+
+//     var endpoint = "https://graph.microsoft.com/v1.0" + relativeUrl;
+//     var postResponse = await Client.PutAsJsonAsync(endpoint, UnSerializedContent);
+
+//     var serverResponse = await postResponse.Content.ReadAsStringAsync();
+// }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -56,6 +69,9 @@ namespace GraphTutorial
                     new AuthenticationHeaderValue("Bearer", token);
             })
         );
+
+
+        
 
         // Get user information from Graph
         var user = await graphClient.Me.Request()
@@ -179,6 +195,10 @@ namespace GraphTutorial
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+
+            
         }
     }
 }
