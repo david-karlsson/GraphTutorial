@@ -56,7 +56,7 @@ GraphServiceClient _graphClient{get;set;}
 
 
 
-            //  [HttpPost]   
+             [HttpPost]   
         [AuthorizeForScopes(Scopes = new[] { "Files.ReadWrite" })]
 
 

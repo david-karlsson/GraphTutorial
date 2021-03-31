@@ -46,7 +46,7 @@ GraphServiceClient _graphClient{get;set;}
 
 
     [HttpGet ]  
-  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite" })]
+  [AuthorizeForScopes(Scopes = new[] { "User.Read" })]
             public async  Task <IActionResult> Index(){
 
 
@@ -86,7 +86,7 @@ public IActionResult UserCreateForm(){
 
 
 [HttpPost]
-  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite.All" })]
+  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite" })]
 public async Task<IActionResult> CreateUser([Bind("DisplayName,UserPrincipalName")]User user){
 
     
@@ -106,8 +106,8 @@ public async Task<IActionResult> CreateUser([Bind("DisplayName,UserPrincipalName
         user.AccountEnabled = true;
         // var fullName = user.GivenName +" "+ user.Surname;
         // user.DisplayName = user.GivenName;
-        user.City="RequiredForCompatibility";
-        user.MailNickname = user.City;
+        // user.City="RequiredForCompatibility";
+        user.MailNickname = "RequiredForCompatibility";
         user.PasswordProfile = new PasswordProfile
 	{
 		ForceChangePasswordNextSignIn = true,
@@ -129,16 +129,16 @@ public async Task<IActionResult> CreateUser([Bind("DisplayName,UserPrincipalName
 }
 
 
-    [HttpPatch ]     
+    [HttpPatch]     
     [ValidateAntiForgeryToken]
-  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite" })]
-            public async Task<IActionResult> UpdateUser( [FromBody] User user){
+  [AuthorizeForScopes(Scopes = new[] {  "Directory.ReadWrite.All", })]
+            public async Task<IActionResult> UpdateUser( [Bind("JobTitle,DisplayName,UserPrincipalName")] User user){
 
 
                                 
-                user.JobTitle ="Test..";
+                // user.JobTitle ="Test..";
 
-                await _graphClient.Me
+                await _graphClient.Users[user.Id]
                     .Request()
                     // .Select("jobTitle,mail,userPrincipalName")
                     .UpdateAsync(user);
@@ -159,7 +159,7 @@ public IActionResult UserDeleteForm(){
    
     [HttpDelete ]     
     [ValidateAntiForgeryToken]
-  [AuthorizeForScopes(Scopes = new[] { "Directory.AccessAsUser.All" })]
+  [AuthorizeForScopes(Scopes = new[] { "User.ReadWrite" })]
             public async Task<IActionResult> DeleteUser( [FromBody] User user){
 
 

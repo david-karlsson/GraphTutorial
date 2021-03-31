@@ -7,6 +7,9 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System;
+
+
 
 // using System.Net.Http;
 
@@ -126,41 +129,49 @@ GraphServiceClient _graphClient{get;set;}
                    }
 
 
-
-    private async void SendMessageButton_Click()
-        {
-            var recipients = new List<Recipient>();
-            recipients.Add(new Recipient
-            {
-                EmailAddress = new EmailAddress
-                {
-                    Address = "rgreen2005@msn.com"
-                }
-            });
-
-            var messageToSend = new Message
-            {
-                ToRecipients = recipients,
-                Subject = "Urgent",
-                Body = new ItemBody
-                {
-                    Content = "Call me immediately if you don't get this message!!",
-                    ContentType = BodyType.Html
-                },
-            };
-
-            try
-            {
-                await _graphClient.Me.SendMail(messageToSend, true).Request().PostAsync();
-            }
-            catch //(ServiceException ex)
-            {
-                // MessageCountTextBlock.Text = $"We could not send this message: {ex.Error.Message}";
-            }
-        }
+              [HttpPost]
+            [AuthorizeForScopes(Scopes = new[] { "Mail.Send" })]
+                public async Task <IActionResult> SendMail()
+                    {
+                        var recipients = new List<Recipient>();
+                        recipients.Add(new Recipient
+                        {
+                            EmailAddress = new EmailAddress
+                            {
+                                Address = "dk-webbdesign@outlook.com"
+                            }
+                        });
 
 
+                        
 
+                        var messageToSend = new Message
+                        {
+                            ToRecipients = recipients,
+                        
+                            Subject = "Urgent",
+                            Body = new ItemBody
+                            {
+                                Content = "Call me immediately if you don't get this message!!",
+                                ContentType = BodyType.Html
+                            },
+                        };
+
+                        try
+                        {
+                            await _graphClient.Me.SendMail(messageToSend, true).Request().PostAsync();
+                            
+                        }
+                        catch (ServiceException ex)
+                        {
+                            Console.WriteLine($"We could not send this message: {ex.Error.Message}");
+                            
+                        }
+                        return View(messageToSend);
+                    }
+
+
+      
 
 
      }

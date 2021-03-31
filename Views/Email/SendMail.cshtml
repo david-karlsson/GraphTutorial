@@ -1,0 +1,19 @@
+@model Microsoft.Graph.Message
+
+@{
+    ViewData["Title"] = "Send Mail";
+}
+
+ <h3 class="toast-header">Send Email:</h3>
+
+@* <label>From:</label>
+
+@Model.Sender *@
+
+<label>Subject:</label>
+@Model.Subject
+
+
+<p>
+ @Model.Body.Content
+</p>
