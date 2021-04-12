@@ -129,7 +129,7 @@ GraphServiceClient _graphClient{get;set;}
                    }
 
 
-              [HttpPost]
+            //   [HttpPost]
             [AuthorizeForScopes(Scopes = new[] { "Mail.Send" })]
                 public async Task <IActionResult> SendMail()
                     {

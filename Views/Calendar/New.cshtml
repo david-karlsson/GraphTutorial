@@ -16,6 +16,12 @@
     <input asp-for="Attendees" class="form-control" />
     <span asp-validation-for="Attendees" class="text-danger"></span>
   </div>
+
+
+  @* @Html.DropDownListFor(m => m.Attendees, 
+            new SelectList(Enum.GetValues(typeof(GraphTutorial.Models.UserModel))), 
+            "Select User") *@
+
   <div class="form-row">
     <div class="col">
       <div class="form-group">
@@ -37,6 +43,15 @@
     <textarea asp-for="Body" class="form-control"></textarea>
     <span asp-validation-for="Body" class="text-danger"></span>
   </div>
+
+@* 
+<div class="form-group">
+  <label>Affected User (name):</label>
+    <textarea asp-for="EventUser.DisplayName" class="form-control"></textarea>
+    <span asp-validation-for="EventUser" class="text-danger"></span>
+  </div> *@
+
+
   <div class="form-group">
     <input type="submit" value="Save" class="btn btn-primary" />
   </div>

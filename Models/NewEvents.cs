@@ -1,10 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Graph;
 
 namespace GraphTutorial.Models
 {
     public class NewEvent
-    {
+    {   
+      
+       public User EventUser{ get; set; }
         [Required]
         public string Subject { get; set; }
         public DateTime Start { get; set; }

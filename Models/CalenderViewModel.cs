@@ -7,6 +7,8 @@ namespace GraphTutorial.Models
 {
     public class CalendarViewModel
     {
+
+        private User EventUser;
         private DateTime _startOfWeek;
         private DateTime _endOfWeek;
         private List<CalendarViewEvent> _events;

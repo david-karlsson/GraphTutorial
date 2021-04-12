@@ -23,6 +23,8 @@ namespace GraphTutorial.Controllers
             _logger = logger;
         }
 
+        
+
                 private async Task<IList<Event>> GetUserWeekCalendar(DateTime startOfWeekUtc)
                 {
                     // Configure a calendar view for the current week
@@ -198,6 +200,15 @@ public async Task<IActionResult> New([Bind("Subject,Attendees,Start,End,Body")] 
         }
     }
 
+
+
+//  if (!string.IsNullOrEmpty(newEvent.EventUser.DisplayName))
+//     {
+        
+        
+//     }
+
+
     try
     {
         // Add the event
@@ -216,6 +227,24 @@ public async Task<IActionResult> New([Bind("Subject,Attendees,Start,End,Body")] 
     }
 }
 
+        // [HttpDelete]
+        [ValidateAntiForgeryToken]
+        [AuthorizeForScopes(Scopes = new[] { "Calendars.ReadWrite" })]
+            public async Task<IActionResult> Delete( string EventId){
+
+                var e = new Event{
+                    
+                    Id="1",
+                   Subject = "Delete-Test" 
+                };
+
+                await _graphClient.Me.Events[e.Id]
+                    .Request()
+                    .DeleteAsync();
+
+                return View();
+
+            }
     }
 
 

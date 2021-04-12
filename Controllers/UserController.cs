@@ -52,7 +52,7 @@ GraphServiceClient _graphClient{get;set;}
 
 
                      users =  await _graphClient.Users.Request()
-                                                                        .Select("displayName,mail,userPrincipalName")
+                                                                        .Select("displayName,mail,userPrincipalName,city")
                                                                         .GetAsync();
 
                                          MyUsers = new List<User>();
@@ -69,7 +69,11 @@ GraphServiceClient _graphClient{get;set;}
                                                 Id = u.Id,
                                                 DisplayName = u.DisplayName,
                                                 Mail = u.Mail,
-                                                UserPrincipalName = u.UserPrincipalName
+                                                UserPrincipalName = u.UserPrincipalName,
+                                                JobTitle =  u.JobTitle,
+                                                City = u.City
+                               
+
                                             });
 
                                             
@@ -131,7 +135,7 @@ public async Task<IActionResult> CreateUser([Bind("DisplayName,UserPrincipalName
 
     [HttpPatch]     
     [ValidateAntiForgeryToken]
-  [AuthorizeForScopes(Scopes = new[] {  "Directory.ReadWrite.All", })]
+  [AuthorizeForScopes(Scopes = new[] {  "User.ReadWrite.All", })]
             public async Task<IActionResult> UpdateUser( [Bind("JobTitle,DisplayName,UserPrincipalName")] User user){
 
 
