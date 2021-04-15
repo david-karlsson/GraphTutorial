@@ -227,24 +227,49 @@ public async Task<IActionResult> New([Bind("Subject,Attendees,Start,End,Body")] 
     }
 }
 
-        // [HttpDelete]
+
+
+
+        [HttpDelete]
         [ValidateAntiForgeryToken]
         [AuthorizeForScopes(Scopes = new[] { "Calendars.ReadWrite" })]
-            public async Task<IActionResult> Delete( string EventId){
+            public async Task<IActionResult> Delete( Event eventInput){
+            
+            
+                        //      var timeZone = User.GetUserGraphTimeZone();
+                        //         var e = new Event{
+                                    
+                        //             Id="1",
+                        //            Subject = "Delete-Test", 
+                        //         Start = new DateTimeTimeZone
+                        //             {
+                        //                 DateTime = eventInput.Start.ToString(),
+                        //                 // Use the user's time zone
+                        //                 TimeZone = timeZone
+                        //             },
+                        // End = new DateTimeTimeZone
+                        // {
+                        //     DateTime = eventInput.End.ToString(),
+                        //     // Use the user's time zone
+                        //     TimeZone = timeZone
+                        // }
+                        //         };
 
-                var e = new Event{
-                    
-                    Id="1",
-                   Subject = "Delete-Test" 
-                };
-
-                await _graphClient.Me.Events[e.Id]
+                await _graphClient.Me.Events[eventInput.Id]
                     .Request()
                     .DeleteAsync();
 
                 return View();
 
             }
+
+
+
+                 public async Task<IActionResult> EventDeleteForm(){
+                        
+                     return View();
+                 }
+
     }
 
 
