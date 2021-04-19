@@ -10,8 +10,9 @@
 <div class="mb-3">
   <h1 class="mb-3">@Model.TimeSpan()</h1>
       <a class="btn btn-danger btn-sm " asp-area="" asp-controller="Calendar" asp-action="EventDeleteForm">Delete Event</a>
+      <a class="btn btn-warning btn-sm " asp-area="" asp-controller="Calendar" asp-action="Edit">Update Event</a>
 
-  <a class="btn btn-light btn-sm" asp-controller="Calendar" asp-action="New">New event</a>
+  <a class="btn btn-primary btn-sm" asp-controller="Calendar" asp-action="New">New event</a>
 </div>
 <div class="calendar-week">
   <div class="table-responsive">

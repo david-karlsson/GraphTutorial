@@ -227,7 +227,39 @@ public async Task<IActionResult> New([Bind("Subject,Attendees,Start,End,Body")] 
     }
 }
 
+   [HttpPatch]
+        [ValidateAntiForgeryToken]
+        [AuthorizeForScopes(Scopes = new[] { "Calendars.ReadWrite" })]
+            public async Task<IActionResult> Edit( Event eventInput){
 
+            var @event = new Event
+            {
+                OriginalStartTimeZone = User.GetUserGraphTimeZone(),
+                OriginalEndTimeZone = User.GetUserGraphTimeZone(),
+                ResponseStatus = new ResponseStatus
+                {
+                    Response = ResponseType.None,
+                    Time = DateTimeOffset.Parse(eventInput.Start.ToString())
+                },
+                Recurrence = null,
+                ICalUId = eventInput.ICalUId,
+                ReminderMinutesBeforeStart = 99,
+                IsOnlineMeeting = true,
+                OnlineMeetingProvider = OnlineMeetingProviderType.TeamsForBusiness,
+                IsReminderOn = true,
+                HideAttendees = false,
+                Categories = new List<String>()
+                {
+                    "Red category"
+                }
+            };
+
+            await _graphClient.Me.Events[eventInput.Id]
+                .Request()
+                .UpdateAsync(@event);
+
+                return View(@event);
+            }
 
 
         [HttpDelete]
@@ -259,7 +291,7 @@ public async Task<IActionResult> New([Bind("Subject,Attendees,Start,End,Body")] 
                     .Request()
                     .DeleteAsync();
 
-                return View();
+                return View(eventInput);
 
             }
 
